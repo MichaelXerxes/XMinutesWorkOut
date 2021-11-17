@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    android:id="@+id/linlayExerciseID"
+    >
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/tvExerciseNameID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Exercise Name"
+        android:textColor="@color/purple_500"
+        android:textSize="35sp"
+        android:textStyle="bold"
+
+        />
+
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:id="@+id/ivImageItsNameID"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="fitXY"
+
+        android:src="@drawable/circular_progress_bar"
+        android:visibility="invisible"
+         />
+
+
+
+
+
+    <FrameLayout
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:id="@+id/frameExerciseLayoutProgressBar"
+        android:layout_width="300dp"
+        android:layout_height="180dp"
+        android:layout_marginBottom="264dp"
+        android:visibility="visible"
+        android:background="@drawable/circular_color_border"
+        >
+        <ProgressBar
+            android:id="@+id/ExerciseprogressBarID"
+            android:layout_width="230dp"
+            android:layout_height="180dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_gravity="center"
+            android:background="@drawable/circular_progress_bar_grey1"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            android:indeterminate="false"
+            android:max="8"
+            android:progress="100"
+            android:rotation="-90"
+            />
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:background="@drawable/item_circular_accent_background1"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/tvExreciseTimerID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="55sp"
+                android:text="30"/>
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+</LinearLayout>

@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
-import android.widget.Toast
+import android.widget.*
 import com.example.xminutesworkout.databinding.ActivityExreciseBinding
 
 class ExreciseActivity : AppCompatActivity() {
@@ -17,6 +17,13 @@ class ExreciseActivity : AppCompatActivity() {
 
     private var exerciseList:ArrayList<ExerciseModel>?=null
     private var currentExrPosition = -1
+
+    private var exerciseLayout:LinearLayout?=null
+    private var progressBarExer:ProgressBar?=null
+    private var exerName:TextView?=null
+    private var timerNameID:TextView?=null
+    private var image:ImageView?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityExreciseBinding.inflate(layoutInflater)
@@ -38,6 +45,12 @@ class ExreciseActivity : AppCompatActivity() {
 
     }
     private fun setupRestView(){
+        setContentView(binding?.root)
+        binding?.frameLayoutProgressBar?.visibility=View.VISIBLE
+        binding?.tvtitle?.visibility=View.VISIBLE
+        //binding?.ivImage1?.visibility=View.INVISIBLE
+       // binding?.tvExercise?.visibility=View.INVISIBLE
+       // binding?.frameExerciseLayoutProgressBar?.visibility=View.INVISIBLE
         if (restTimer!=null){
             restTimer?.cancel()
             restProgress=0
@@ -48,13 +61,27 @@ class ExreciseActivity : AppCompatActivity() {
 
    private fun setupExreciseView(){
         binding?.frameLayoutProgressBar?.visibility=View.INVISIBLE
-        binding?.tvtitle?.text= "Exrecise Name"
-        binding?.frameExerciseLayoutProgressBar?.visibility=View.VISIBLE
+        binding?.tvtitle?.visibility=View.INVISIBLE
+      // binding?.ivImage1?.visibility=View.VISIBLE
+      // binding?.tvExercise?.visibility=View.VISIBLE
+     //   binding?.frameExerciseLayoutProgressBar?.visibility=View.VISIBLE
+       image=findViewById(R.id.ivImageItsNameID)
+       exerName=findViewById(R.id.tvExerciseNameID)
+       exerciseLayout=findViewById(R.id.linlayExerciseID)
+       setContentView(R.layout.exercise_layout)
+
+
         //reset Timer
         if(exerciseTimer!=null){
             exerciseTimer?.cancel()
             exerciseProgress=0
         }
+       image?.setImageResource(exerciseList!![currentExrPosition].getImage())
+       exerName?.text=exerciseList!![currentExrPosition].getName()
+
+
+  //     binding?.ivImage1?.setImageResource(exerciseList!![currentExrPosition].getImage())
+    //   binding?.tvExercise?.text=exerciseList!![currentExrPosition].getName()
         setExreciseProgressBar()
 
     }
@@ -77,21 +104,31 @@ class ExreciseActivity : AppCompatActivity() {
     }
 
     private fun setExreciseProgressBar(){
-        binding?.ExerciseprogressBar?.progress = exerciseProgress
+        progressBarExer=findViewById(R.id.ExerciseprogressBarID)
+        timerNameID=findViewById(R.id.tvExreciseTimerID)
+        //binding?.ExerciseprogressBar?.progress = exerciseProgress
+        progressBarExer?.progress=exerciseProgress
 
-        exerciseTimer=object : CountDownTimer(30000,1000){
+        exerciseTimer=object : CountDownTimer(8000,1000){
             override fun onTick(millisUntilFinished: Long) {
                 exerciseProgress++
-                binding?.ExerciseprogressBar?.progress=30-exerciseProgress
-                binding?.tvExreciseTimer?.text=(30-exerciseProgress).toString()
+                //binding?.ExerciseprogressBar?.progress=8-exerciseProgress
+               // binding?.tvExreciseTimer?.text=(8-exerciseProgress).toString()
+                progressBarExer?.progress=8-exerciseProgress
+                timerNameID?.text=(8-exerciseProgress).toString()
             }
 
             override fun onFinish() {
-                Toast.makeText(
-                    this@ExreciseActivity,
-                    "£0 seconds are over  rest view.",
-                    Toast.LENGTH_SHORT
-                ).show()
+
+                if(currentExrPosition<exerciseList?.size!!-1){
+                    setupRestView()
+                }else{
+                    Toast.makeText(
+                        this@ExreciseActivity,
+                        "Congratulation you finish",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }.start()
     }
