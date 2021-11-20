@@ -28,9 +28,9 @@
         android:scaleType="fitXY"
 
         android:src="@drawable/circular_progress_bar"
-        android:visibility="invisible"
-         />
 
+         />
+    <!-- android:visibility="invisible"-->
 
 
 
@@ -71,7 +71,7 @@
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="55sp"
-                android:text="30"/>
+                android:text="10"/>
         </LinearLayout>
 
 
