@@ -9,9 +9,12 @@ import android.view.View
 import android.widget.*
 import com.example.xminutesworkout.databinding.ActivityExreciseBinding
 import com.example.xminutesworkout.databinding.ExerciseLayoutBinding
+import java.util.function.BinaryOperator
 
 class ExreciseActivity : AppCompatActivity() {
     private var binding:ActivityExreciseBinding?=null
+    private var mergeBinding: ExerciseLayoutBinding?=null
+
     private var restTimer: CountDownTimer?=null
     private var restProgress=0
 
@@ -21,9 +24,15 @@ class ExreciseActivity : AppCompatActivity() {
     private var exerciseList:ArrayList<ExerciseModel>?=null
     private var currentExrPosition = -1
 
+    private var pauseOffset:Long = 0
+    private var isPauseChecked:Boolean=false
+
+    private var index=0
+    private var timeLeftInSeconds:Int=0
 
 
-    private var mergeBinding: ExerciseLayoutBinding?=null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +44,10 @@ class ExreciseActivity : AppCompatActivity() {
 
         setContentView(binding?.root)
 
-        setSupportActionBar(binding?.toolbarExrecise)
-        // set back button on tool bar
-        if(supportActionBar!=null){
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        setSupportActionBar(mergeBinding?.toolabarexerciseID)
+        mergeBinding?.toolabarexerciseID?.setNavigationOnClickListener {
+            onBackPressed()
         }
 
 
@@ -46,6 +55,7 @@ class ExreciseActivity : AppCompatActivity() {
         binding?.toolbarExrecise?.setNavigationOnClickListener {
             onBackPressed()
         }
+
         setupRestView()
 
 
@@ -75,6 +85,7 @@ class ExreciseActivity : AppCompatActivity() {
 
        mergeBinding?.ivImageItsNameID?.setImageResource(exerciseList!![currentExrPosition].getImage())
        mergeBinding?.tvExerciseNameID?.text=exerciseList!![currentExrPosition].getName()
+
 
         //reset Timer
         if(exerciseTimer!=null){
@@ -106,12 +117,29 @@ class ExreciseActivity : AppCompatActivity() {
     private fun setExreciseProgressBar(){
         mergeBinding?.ExerciseprogressBarID?.progress=exerciseProgress
 
+
+
         exerciseTimer=object : CountDownTimer(8000,1000){
             override fun onTick(millisUntilFinished: Long) {
                 exerciseProgress++
 
                 mergeBinding?.ExerciseprogressBarID?.progress=8-exerciseProgress
                 mergeBinding?.tvExreciseTimerID?.text=(8-exerciseProgress).toString()
+                timeLeftInSeconds=(millisUntilFinished/1000).toInt()
+
+                val long1:Long=(8-exerciseProgress).toLong()
+
+
+                mergeBinding?.pausePlayBtnID?.setOnClickListener {
+                    index++
+                    if (index%2!=0){
+                        pauseTimer(exerciseTimer!!)
+                    }
+                    else{
+                        startTimer(long1)
+                        isPauseChecked=false
+                    }
+                }
 
             }
 
@@ -128,6 +156,38 @@ class ExreciseActivity : AppCompatActivity() {
             }
         }.start()
     }
+    private fun startTimer(pauseOffsetL: Long) {
+
+        exerciseTimer= object : CountDownTimer((timeLeftInSeconds*1000).toLong()
+            ,1000){
+            override fun onTick(millisUntilFinished: Long) {
+                //pauseOffset=timeDuration - millisUntilFinished
+
+                mergeBinding?.ExerciseprogressBarID?.progress=(millisUntilFinished/1000).toInt()
+                //mergeBinding?.tvExreciseTimerID?.text=(8-exerciseProgress).toString()
+                mergeBinding?.tvExreciseTimerID?.text=(millisUntilFinished/1000).toString()
+                timeLeftInSeconds=(millisUntilFinished/1000).toInt()
+            }
+
+            override fun onFinish() {
+                if(currentExrPosition<exerciseList?.size!!-1){
+                    setupRestView()
+                }else{
+                    Toast.makeText(
+                        this@ExreciseActivity,
+                        "Congratulation you finish",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+        }.start()
+    }
+    private fun pauseTimer(timer: CountDownTimer){
+        timer.cancel()
+        isPauseChecked=true
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -138,7 +198,10 @@ class ExreciseActivity : AppCompatActivity() {
         if(exerciseTimer!=null){
             exerciseTimer?.cancel()
             exerciseProgress=0
+            index=0
+            timeLeftInSeconds=0
         }
         binding=null
+        mergeBinding=null
     }
 }

@@ -5,7 +5,18 @@
     android:layout_height="match_parent"
     android:padding="8dp"
     android:id="@+id/linlayExerciseID"
+    android:background="#BBA2D1"
     >
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolabarexerciseID"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="#ffffff"
+        android:theme="@style/ToolbarTheme"
+        android:titleTextAppearance="@color/light_gery"
+
+        android:titleTextColor="@color/black"/>
+
 
     <TextView
         android:layout_marginTop="10dp"
@@ -30,10 +41,24 @@
         android:src="@drawable/circular_progress_bar"
 
          />
-    <!-- android:visibility="invisible"-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
 
 
+        <Button
+            android:id="@+id/pause_playBtnID"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/accent_border_background"
+            android:text="PAUSE/PLAY"
+            android:textSize="@dimen/default_text_size_btn"
+            android:textStyle="bold"
+            android:textColor="#CAE4ED"/>
 
+    </FrameLayout>
 
     <FrameLayout
         android:layout_gravity="center"
@@ -73,8 +98,14 @@
                 android:textSize="55sp"
                 android:text="10"/>
         </LinearLayout>
-
-
     </FrameLayout>
+
+
+
+
+
+
+
+
 
 </LinearLayout>
