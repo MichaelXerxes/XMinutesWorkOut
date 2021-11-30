@@ -4,14 +4,18 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.speech.tts.TextToSpeech
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.widget.*
 import com.example.xminutesworkout.databinding.ActivityExreciseBinding
 import com.example.xminutesworkout.databinding.ExerciseLayoutBinding
+import java.util.*
 import java.util.function.BinaryOperator
+import kotlin.collections.ArrayList
 
-class ExreciseActivity : AppCompatActivity() {
+class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var binding:ActivityExreciseBinding?=null
     private var mergeBinding: ExerciseLayoutBinding?=null
 
@@ -30,6 +34,8 @@ class ExreciseActivity : AppCompatActivity() {
     private var index=0
     private var timeLeftInSeconds:Int=0
 
+    private var tts:TextToSpeech?=null
+
 
 
 
@@ -38,14 +44,16 @@ class ExreciseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // list exercise
         exerciseList=Constants.defaultExerciseList()
+        tts= TextToSpeech(this,this)
 
         binding= ActivityExreciseBinding.inflate(layoutInflater)
         mergeBinding= ExerciseLayoutBinding.inflate(layoutInflater)
 
         setContentView(binding?.root)
-
-
         setSupportActionBar(mergeBinding?.toolabarexerciseID)
+
+
+
         mergeBinding?.toolabarexerciseID?.setNavigationOnClickListener {
             onBackPressed()
         }
@@ -67,11 +75,18 @@ class ExreciseActivity : AppCompatActivity() {
         setContentView(binding?.root)
         binding?.frameLayoutProgressBar?.visibility=View.VISIBLE
         binding?.tvtitle?.visibility=View.VISIBLE
+        binding?.tvNextExerciseName?.visibility=View.VISIBLE
+        binding?.tvNextExercise?.visibility=View.VISIBLE
 
         if (restTimer!=null){
             restTimer?.cancel()
             restProgress=0
         }
+
+
+        binding?.tvNextExerciseName?.text =
+            exerciseList!![currentExrPosition+1].getName().toString()
+        speakOut("Rest Now! Ha Ha")
 
         setRestProgressBar()
     }
@@ -79,6 +94,8 @@ class ExreciseActivity : AppCompatActivity() {
    private fun setupExreciseView(){
         binding?.frameLayoutProgressBar?.visibility=View.INVISIBLE
         binding?.tvtitle?.visibility=View.INVISIBLE
+        binding?.tvNextExerciseName?.visibility=View.INVISIBLE
+        binding?.tvNextExercise?.visibility=View.INVISIBLE
 
 
        setContentView(mergeBinding?.root)
@@ -92,6 +109,10 @@ class ExreciseActivity : AppCompatActivity() {
             exerciseTimer?.cancel()
             exerciseProgress=0
         }
+       // speak Out !!
+       speakOut(exerciseList!![currentExrPosition].getName())
+
+       binding?.tvNextExerciseName?.text=exerciseList!![currentExrPosition+1].getName().toString()
 
         setExreciseProgressBar()
 
@@ -201,7 +222,31 @@ class ExreciseActivity : AppCompatActivity() {
             index=0
             timeLeftInSeconds=0
         }
+        if(tts!=null){
+            tts!!.stop()
+            tts!!.shutdown()
+        }
+
+
         binding=null
         mergeBinding=null
     }
+
+    override fun onInit(status: Int) {
+        if(status== TextToSpeech.SUCCESS){
+            val result= tts?.setLanguage(Locale.ENGLISH)
+            if(result==TextToSpeech.LANG_MISSING_DATA ||
+                    result== TextToSpeech.LANG_NOT_SUPPORTED){
+                Log.e("TTS","The :anguage specified is not supported!")
+            }else{
+                Log.e("TTS","Initialization Failed!")
+            }
+        }
+    }
+    private fun speakOut(text: String){
+        if (tts!=null) {
+            tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+        }
+    }
+
 }
