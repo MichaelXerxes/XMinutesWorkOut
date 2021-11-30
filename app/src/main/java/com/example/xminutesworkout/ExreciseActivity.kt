@@ -1,6 +1,8 @@
 package com.example.xminutesworkout
 
 import android.content.Context
+import android.media.MediaPlayer
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -35,6 +37,7 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var timeLeftInSeconds:Int=0
 
     private var tts:TextToSpeech?=null
+    private var player:MediaPlayer?=null
 
 
 
@@ -72,6 +75,21 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
 
     private fun setupRestView(){
+        try {
+            val soundURI= Uri.parse("android.resource://com.example.xminutesworkout/"+
+            R.raw.mixkitdoublelittlebirdchirp)
+            player=MediaPlayer.create(applicationContext,soundURI)
+            player?.isLooping=false
+            player?.start()
+
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+
+
+
+
+
         setContentView(binding?.root)
         binding?.frameLayoutProgressBar?.visibility=View.VISIBLE
         binding?.tvtitle?.visibility=View.VISIBLE
