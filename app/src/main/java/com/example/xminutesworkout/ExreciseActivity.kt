@@ -39,6 +39,8 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var tts:TextToSpeech?=null
     private var player:MediaPlayer?=null
 
+    private var exerciseAdapter:ExerciseStatusAdapter?=null
+
 
 
 
@@ -51,21 +53,17 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         binding= ActivityExreciseBinding.inflate(layoutInflater)
         mergeBinding= ExerciseLayoutBinding.inflate(layoutInflater)
-
         setContentView(binding?.root)
+
+        //  toolbar
         setSupportActionBar(mergeBinding?.toolabarexerciseID)
-
-
-
+        if (supportActionBar != null){
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        }
         mergeBinding?.toolabarexerciseID?.setNavigationOnClickListener {
             onBackPressed()
         }
-
-
-
-        binding?.toolbarExrecise?.setNavigationOnClickListener {
-            onBackPressed()
-        }
+        //
 
         setupRestView()
 
@@ -85,8 +83,6 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }catch (e:Exception){
             e.printStackTrace()
         }
-
-
 
 
 
@@ -228,6 +224,27 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
 
+  //       Test To Speech
+
+    override fun onInit(status: Int) {
+        if(status== TextToSpeech.SUCCESS){
+            val result= tts?.setLanguage(Locale.ENGLISH)
+            if(result==TextToSpeech.LANG_MISSING_DATA ||
+                    result== TextToSpeech.LANG_NOT_SUPPORTED){
+                Log.e("TTS","The language specified is not supported!")
+            }else{
+                Log.e("TTS","Initialization Failed!")
+            }
+        }
+    }
+    private fun speakOut(text: String){
+        if (tts!=null) {
+            tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+        }
+    }
+
+//               Destroy
+
     override fun onDestroy() {
         super.onDestroy()
         if (restTimer!=null){
@@ -244,27 +261,13 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             tts!!.stop()
             tts!!.shutdown()
         }
+        if(player!=null){
+            player!!.stop()
+        }
 
 
         binding=null
         mergeBinding=null
-    }
-
-    override fun onInit(status: Int) {
-        if(status== TextToSpeech.SUCCESS){
-            val result= tts?.setLanguage(Locale.ENGLISH)
-            if(result==TextToSpeech.LANG_MISSING_DATA ||
-                    result== TextToSpeech.LANG_NOT_SUPPORTED){
-                Log.e("TTS","The :anguage specified is not supported!")
-            }else{
-                Log.e("TTS","Initialization Failed!")
-            }
-        }
-    }
-    private fun speakOut(text: String){
-        if (tts!=null) {
-            tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
-        }
     }
 
 }

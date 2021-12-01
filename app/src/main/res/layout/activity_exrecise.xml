@@ -2,39 +2,27 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/conslayoutexercise"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/conslayoutexercise"
     tools:context=".ExreciseActivity">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarExrecise"
-        android:layout_width="407dp"
-        android:layout_height="58dp"
-        android:background="#ffffff"
-        android:theme="@style/ToolbarTheme"
-
-        android:visibility="visible"
-        app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="@color/black"
-        tools:layout_editor_absoluteX="4dp" />
-
 
 
     <TextView
         android:id="@+id/tvtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="64dp"
         android:text="Get READY For !"
+
         android:textColor="@color/textview_exrecise_color"
 
         android:textSize="@dimen/default_text_size_btn"
-
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarExrecise" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:id="@+id/frameLayoutProgressBar"
@@ -47,7 +35,7 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvtitle"
-        app:layout_constraintVertical_bias="0.844">
+        app:layout_constraintVertical_bias="0.238">
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -86,13 +74,13 @@
         android:id="@+id/tvNextExercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:visibility="gone"
-
+        android:layout_marginTop="40dp"
         android:padding="5dp"
+
         android:text="Exercise Name"
         android:textSize="@dimen/default_text_size_btn"
         android:textStyle="bold"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayoutProgressBar" />
@@ -101,17 +89,27 @@
         android:id="@+id/tvNextExerciseName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
 
+        android:layout_marginTop="28dp"
         android:padding="5dp"
         android:text="Exercise Name"
         android:textSize="@dimen/default_text_size_btn"
-        android:textStyle="bold"
 
-        android:visibility="gone"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNextExercise" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvExerciseStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
 
