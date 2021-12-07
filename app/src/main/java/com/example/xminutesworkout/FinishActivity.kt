@@ -8,13 +8,21 @@ import com.example.xminutesworkout.databinding.ActivityFinishBinding
 class FinishActivity : AppCompatActivity() {
 
     private var binding:ActivityFinishBinding?=null
-
+    //private var exerciseList:ArrayList<ExerciseModel>?=null
+    private var exerciseList:ArrayList<ExerciseModel>?=null
     private var exerciseAdapter:ExerciseStatusAdapter?=null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityFinishBinding.inflate(layoutInflater)
+        exerciseList=Constants.forFinishActivityRView()
+        exerciseAdapter= ExerciseStatusAdapter(exerciseList!!)
+
+
         setContentView(binding?.root)
-        val exerciseList=intent.getArrArrayListExtra<ExerciseModel>("Exercise List")
+         //exerciseList=intent.getLongArrayExtra("Exercise List")
+
 
 
         /*setSupportActionBar(binding?.toolbarFinishActivity)
@@ -35,8 +43,9 @@ class FinishActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,
                 false)
 
-        exerciseAdapter= ExerciseStatusAdapter(exerciseList!!)
+
         binding?.rvFinishStatusID?.adapter=exerciseAdapter
+        exerciseAdapter!!.notifyDataSetChanged()
 
 
     }

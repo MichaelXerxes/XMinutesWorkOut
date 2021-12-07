@@ -156,17 +156,19 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun setRestProgressBar(){
         binding?.progressBar?.progress = restProgress
 
-        restTimer=object : CountDownTimer(1000,1000){
+        restTimer=object : CountDownTimer(2000,1000){
             override fun onTick(millisUntilFinished: Long) {
                 restProgress++
                 binding?.progressBar?.progress=5-restProgress
                 binding?.tvTimer?.text=(5-restProgress).toString()
+
             }
 
             override fun onFinish() {
                 currentExrPosition++
                 /////
                 exerciseList!![currentExrPosition].setIsSelected(true)
+                //exerciseList!![currentExrPosition].setIsComplited(true)
                 exerciseAdapter!!.notifyDataSetChanged()
 
 
@@ -188,6 +190,7 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
                 mergeBinding?.ExerciseprogressBarID?.progress=8-exerciseProgress
                 mergeBinding?.tvExreciseTimerID?.text=(8-exerciseProgress).toString()
+
                 timeLeftInSeconds=(millisUntilFinished/1000).toInt()
 
                 val long1:Long=(8-exerciseProgress).toLong()
@@ -224,7 +227,7 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
                     val intent=Intent(this@ExreciseActivity, FinishActivity::class.java)
                     startActivity(intent)
-                    intent.putExtra("Exercise List",exerciseList)
+                    //intent.putExtra("Exercise List",exerciseList)
                     finish()
                 }
             }
@@ -245,6 +248,9 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
             override fun onFinish() {
                 if(currentExrPosition<exerciseList?.size!!-1){
+                    exerciseList!![currentExrPosition].setIsSelected(false)
+                    exerciseList!![currentExrPosition].setIsComplited(true)
+                    exerciseAdapter!!.notifyDataSetChanged()
                     setupRestView()
                 }else{
                     Toast.makeText(
@@ -252,6 +258,10 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                         "Congratulation you finish",
                         Toast.LENGTH_SHORT
                     ).show()
+                    val intent=Intent(this@ExreciseActivity, FinishActivity::class.java)
+                    startActivity(intent)
+                    //intent.putExtra("Exercise List",exerciseList)
+                    finish()
                 }
             }
 

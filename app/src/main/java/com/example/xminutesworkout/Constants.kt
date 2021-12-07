@@ -28,4 +28,15 @@ object Constants {
 
         return exerciseList
     }
+    fun forFinishActivityRView():ArrayList<ExerciseModel>{
+        val exerciseList= ArrayList<ExerciseModel>()
+
+        for(i in 1..5){
+            var exerciseModel: ExerciseModel?=null
+            exerciseModel=ExerciseModel(i,"",0,true,false)
+            exerciseList.add(exerciseModel)
+
+        }
+        return exerciseList
+    }
 }
