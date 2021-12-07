@@ -1,6 +1,7 @@
 package com.example.xminutesworkout
 
 import android.content.Context
+import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.xminutesworkout.databinding.ActivityExreciseBinding
 import com.example.xminutesworkout.databinding.ExerciseLayoutBinding
 import java.util.*
@@ -23,6 +25,7 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private var restTimer: CountDownTimer?=null
     private var restProgress=0
+
 
     private var exerciseTimer: CountDownTimer?=null
     private var exerciseProgress=0
@@ -67,7 +70,22 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         setupRestView()
 
+        setupExerciseStatusRecyclerView()
 
+
+    }
+    private fun setupExerciseStatusRecyclerView(){
+        binding?.rvExerciseStatus?.layoutManager=
+            LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,
+            false)
+
+        exerciseAdapter= ExerciseStatusAdapter(exerciseList!!)
+        binding?.rvExerciseStatus?.adapter=exerciseAdapter
+
+        mergeBinding?.rvExerciseStatusID?.layoutManager=
+            LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,
+                false)
+        mergeBinding?.rvExerciseStatusID?.adapter=exerciseAdapter
     }
 
 
@@ -125,8 +143,12 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
        // speak Out !!
        speakOut(exerciseList!![currentExrPosition].getName())
-
-       binding?.tvNextExerciseName?.text=exerciseList!![currentExrPosition+1].getName().toString()
+       try {
+           binding?.tvNextExerciseName?.text =
+               exerciseList!![currentExrPosition + 1].getName().toString()
+       }catch (e:Exception){
+           e.printStackTrace()
+       }
 
         setExreciseProgressBar()
 
@@ -134,7 +156,7 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun setRestProgressBar(){
         binding?.progressBar?.progress = restProgress
 
-        restTimer=object : CountDownTimer(5000,1000){
+        restTimer=object : CountDownTimer(1000,1000){
             override fun onTick(millisUntilFinished: Long) {
                 restProgress++
                 binding?.progressBar?.progress=5-restProgress
@@ -143,6 +165,12 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
             override fun onFinish() {
                 currentExrPosition++
+                /////
+                exerciseList!![currentExrPosition].setIsSelected(true)
+                exerciseAdapter!!.notifyDataSetChanged()
+
+
+
                 setupExreciseView()
 
             }
@@ -154,7 +182,7 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
 
 
-        exerciseTimer=object : CountDownTimer(8000,1000){
+        exerciseTimer=object : CountDownTimer(1000,1000){
             override fun onTick(millisUntilFinished: Long) {
                 exerciseProgress++
 
@@ -179,7 +207,12 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
 
             override fun onFinish() {
+
                 if(currentExrPosition<exerciseList?.size!!-1){
+                    ///////current exercise complited
+                    exerciseList!![currentExrPosition].setIsSelected(false)
+                    exerciseList!![currentExrPosition].setIsComplited(true)
+                    exerciseAdapter!!.notifyDataSetChanged()
                     setupRestView()
                 }else{
                     Toast.makeText(
@@ -187,6 +220,12 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                         "Congratulation you finish",
                         Toast.LENGTH_SHORT
                     ).show()
+
+
+                    val intent=Intent(this@ExreciseActivity, FinishActivity::class.java)
+                    startActivity(intent)
+                    intent.putExtra("Exercise List",exerciseList)
+                    finish()
                 }
             }
         }.start()
