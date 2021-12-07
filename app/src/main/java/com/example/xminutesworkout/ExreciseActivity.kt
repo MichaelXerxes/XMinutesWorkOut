@@ -51,7 +51,9 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // list exercise
-        exerciseList=Constants.defaultExerciseList()
+
+        //exerciseList=Constants.defaultExerciseList()
+        setupProperExerciseList()
         tts= TextToSpeech(this,this)
 
         binding= ActivityExreciseBinding.inflate(layoutInflater)
@@ -72,6 +74,21 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         setupExerciseStatusRecyclerView()
 
+
+    }
+    private fun setupProperExerciseList(){
+        var setnumber=intent.getIntExtra("set",0)
+        when{
+            setnumber==1 ->{
+                exerciseList=Constants.defaultExerciseList()
+            }
+            setnumber==2 ->{
+                exerciseList=ConstantSecondSet.defaultExerciseList()
+            }
+            setnumber==3 ->{
+                exerciseList=ConstantThirdSet.defaultExerciseList()
+            }
+        }
 
     }
     private fun setupExerciseStatusRecyclerView(){

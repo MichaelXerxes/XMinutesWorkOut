@@ -20,10 +20,10 @@
         android:id="@+id/flBtnStart"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/accent_border_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imgView">
 
@@ -31,7 +31,48 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="START"
+            android:text="START SET 1"
+            android:textColor="@color/textview_btn"
+            android:textSize="@dimen/default_text_size_btn"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/flBtnStartSecondSet"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/accent_border_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flBtnStart">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="START SET 2"
+            android:textColor="@color/textview_btn"
+            android:textSize="@dimen/default_text_size_btn"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/flBtnStartThirdSet"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/accent_border_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flBtnStartSecondSet">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="START SET 3"
             android:textColor="@color/textview_btn"
             android:textSize="@dimen/default_text_size_btn"
             android:textStyle="bold" />

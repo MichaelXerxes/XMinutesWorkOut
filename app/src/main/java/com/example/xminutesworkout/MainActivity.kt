@@ -22,6 +22,21 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this,
             "Start Stop",Toast.LENGTH_SHORT).show()
             val intent=Intent(this,ExreciseActivity::class.java)
+            intent.putExtra("set",1)
+            startActivity(intent)
+        }
+        binding?.flBtnStartSecondSet?.setOnClickListener {
+            Toast.makeText(this,
+                "Start Stop",Toast.LENGTH_SHORT).show()
+            val intent=Intent(this,ExreciseActivity::class.java)
+            intent.putExtra("set",2)
+            startActivity(intent)
+        }
+        binding?.flBtnStartThirdSet?.setOnClickListener {
+            Toast.makeText(this,
+                "Start Stop",Toast.LENGTH_SHORT).show()
+            val intent=Intent(this,ExreciseActivity::class.java)
+            intent.putExtra("set",3)
             startActivity(intent)
         }
 
