@@ -1,5 +1,6 @@
 package com.example.xminutesworkout
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
@@ -14,6 +15,7 @@ import android.view.View
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.xminutesworkout.databinding.ActivityExreciseBinding
+import com.example.xminutesworkout.databinding.CustomBackConfirmationBinding
 import com.example.xminutesworkout.databinding.ExerciseLayoutBinding
 import java.util.*
 import java.util.function.BinaryOperator
@@ -66,7 +68,7 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
         mergeBinding?.toolabarexerciseID?.setNavigationOnClickListener {
-            onBackPressed()
+            displayCustomDialogForBackButton()
         }
         //
 
@@ -91,6 +93,21 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
 
     }
+    private fun displayCustomDialogForBackButton(){
+        val customDialog=Dialog(this)
+        val customdialogBinding=CustomBackConfirmationBinding.inflate(layoutInflater)
+        customDialog.setContentView(customdialogBinding.root)
+        customDialog.setCanceledOnTouchOutside(false)
+        customdialogBinding.btnYesID.setOnClickListener {
+            this@ExreciseActivity.finish()
+            customDialog.dismiss()
+        }
+        customdialogBinding.btnNoID.setOnClickListener {
+            customDialog.dismiss()
+        }
+        customDialog.show()
+    }
+
     private fun setupExerciseStatusRecyclerView(){
         binding?.rvExerciseStatus?.layoutManager=
             LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,
