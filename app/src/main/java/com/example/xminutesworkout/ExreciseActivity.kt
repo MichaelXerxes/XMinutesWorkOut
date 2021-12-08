@@ -108,6 +108,11 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         customDialog.show()
     }
 
+    override fun onBackPressed() {
+        displayCustomDialogForBackButton()
+        //super.onBackPressed()
+    }
+
     private fun setupExerciseStatusRecyclerView(){
         binding?.rvExerciseStatus?.layoutManager=
             LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,
