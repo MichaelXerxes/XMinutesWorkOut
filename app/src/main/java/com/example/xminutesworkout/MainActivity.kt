@@ -39,6 +39,10 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("set",3)
             startActivity(intent)
         }
+        binding?.bmiCalculator?.setOnClickListener {
+            val intent=Intent(this,BMIActivity::class.java)
+            startActivity(intent)
+        }
 
 
     }

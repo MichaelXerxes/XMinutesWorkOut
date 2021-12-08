@@ -18,8 +18,8 @@
 
     <FrameLayout
         android:id="@+id/flBtnStart"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/accent_border_background"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="START SET 1"
+            android:text="SET 1"
             android:textColor="@color/textview_btn"
             android:textSize="@dimen/default_text_size_btn"
             android:textStyle="bold" />
@@ -39,8 +39,8 @@
 
     <FrameLayout
         android:id="@+id/flBtnStartSecondSet"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="9dp"
         android:background="@drawable/accent_border_background"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="START SET 2"
+            android:text="SET 2"
             android:textColor="@color/textview_btn"
             android:textSize="@dimen/default_text_size_btn"
             android:textStyle="bold" />
@@ -59,8 +59,8 @@
 
     <FrameLayout
         android:id="@+id/flBtnStartThirdSet"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/accent_border_background"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,8 +72,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="START SET 3"
+            android:text="SET 3"
             android:textColor="@color/textview_btn"
+            android:textSize="@dimen/default_text_size_btn"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/bmiCalculator"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/item_circular_accent_background1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flBtnStartThirdSet">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="BMI"
+            android:textColor="@color/white"
             android:textSize="@dimen/default_text_size_btn"
             android:textStyle="bold" />
     </FrameLayout>
