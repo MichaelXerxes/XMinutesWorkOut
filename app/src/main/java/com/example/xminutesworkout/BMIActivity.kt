@@ -10,6 +10,8 @@ import java.math.RoundingMode
 
 class BMIActivity : AppCompatActivity() {
     private var binding:ActivityBmiBinding?=null
+
+    private var currentUnitView:String= METRIC_UNITS
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityBmiBinding.inflate(layoutInflater)
@@ -23,6 +25,17 @@ class BMIActivity : AppCompatActivity() {
         }
         binding?.toolbarBMIid?.setNavigationOnClickListener {
             onBackPressed()
+        }
+
+        makeVisibleMetricView()//default setup
+
+        //for radio groups
+        binding?.radioGUnits?.setOnCheckedChangeListener { _, checkedId: Int ->
+            if (checkedId==R.id.rbMetricUntis){
+                makeVisibleMetricView()
+            }else{
+                makeVisibleUSAView()
+            }
         }
 
         binding?.btnCalculateUnits?.setOnClickListener {
@@ -94,5 +107,38 @@ class BMIActivity : AppCompatActivity() {
 
 
 
+    }
+    private fun makeVisibleMetricView(){
+        currentUnitView= METRIC_UNITS
+        binding?.metrciUnitIdWeight?.visibility=View.VISIBLE
+        binding?.metrciUnitIdHeight?.visibility=View.VISIBLE
+        binding?.metricUSAUnitIdWeight?.visibility=View.INVISIBLE
+        binding?.metricUSAUnitsHeightFeet?.visibility=View.INVISIBLE
+        binding?.metricUSAUnitsHeightInch?.visibility=View.INVISIBLE
+
+        binding?.cometUnitWeight?.text!!.clear()
+        binding?.cometUnitHeight?.text!!.clear()
+
+        binding?.displayBMIResult?.visibility=View.INVISIBLE
+
+    }
+    private fun makeVisibleUSAView(){
+        currentUnitView= USA_UNITS
+        binding?.metrciUnitIdWeight?.visibility=View.INVISIBLE
+        binding?.metrciUnitIdHeight?.visibility=View.INVISIBLE
+        binding?.metricUSAUnitIdWeight?.visibility=View.VISIBLE
+        binding?.metricUSAUnitsHeightFeet?.visibility=View.VISIBLE
+        binding?.metricUSAUnitsHeightInch?.visibility=View.VISIBLE
+
+        binding?.cometUSAUnitWeight?.text!!.clear()
+        binding?.cometUSAunitHeightFeet?.text!!.clear()
+        binding?.cometUSAunitHeightInch?.text!!.clear()
+
+        binding?.displayBMIResult?.visibility=View.INVISIBLE
+
+    }
+    companion object{
+        private const val METRIC_UNITS="METRIC_UNITS_VIEW"
+        private const val USA_UNITS="USA_UNITS_VIEW"
     }
 }
