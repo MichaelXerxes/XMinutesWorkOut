@@ -1,7 +1,6 @@
 package com.example.xminutesworkout
 
 import android.app.Dialog
-import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
@@ -9,16 +8,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
-import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.xminutesworkout.Exercises.ConstantSecondSet
+import com.example.xminutesworkout.Exercises.ConstantThirdSet
+import com.example.xminutesworkout.Exercises.Constants
 import com.example.xminutesworkout.databinding.ActivityExreciseBinding
 import com.example.xminutesworkout.databinding.CustomBackConfirmationBinding
 import com.example.xminutesworkout.databinding.ExerciseLayoutBinding
 import java.util.*
-import java.util.function.BinaryOperator
 import kotlin.collections.ArrayList
 
 class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
@@ -82,13 +82,13 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         var setnumber=intent.getIntExtra("set",0)
         when{
             setnumber==1 ->{
-                exerciseList=Constants.defaultExerciseList()
+                exerciseList= Constants.defaultExerciseList()
             }
             setnumber==2 ->{
-                exerciseList=ConstantSecondSet.defaultExerciseList()
+                exerciseList= ConstantSecondSet.defaultExerciseList()
             }
             setnumber==3 ->{
-                exerciseList=ConstantThirdSet.defaultExerciseList()
+                exerciseList= ConstantThirdSet.defaultExerciseList()
             }
         }
 

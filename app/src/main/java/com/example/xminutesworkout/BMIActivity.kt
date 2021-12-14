@@ -39,7 +39,7 @@ class BMIActivity : AppCompatActivity() {
         }
 
         binding?.btnCalculateUnits?.setOnClickListener {
-            calculateBMI()
+            calculateUnits()
         }
 
     }
@@ -53,7 +53,22 @@ class BMIActivity : AppCompatActivity() {
         }
         return isValid
     }
-    private fun calculateBMI(){
+    private fun validateUSAcUnits():Boolean{
+        var isValid=true
+        when {
+            binding?.cometUSAUnitWeight?.text.toString().isEmpty() -> {
+                isValid = false
+            }
+            binding?.cometUSAunitHeightFeet?.text.toString().isEmpty() -> {
+                isValid = false
+            }
+            binding?.cometUSAunitHeightInch?.text.toString().isEmpty() -> {
+                isValid = false
+            }
+        }
+        return isValid
+    }
+    private fun calculateMetricBMI(){
         val bmi:Float=0f
             if(validateMetricUnits()){
                 val weightValue:Float=binding?.cometUnitWeight?.text.toString().toFloat()
@@ -67,6 +82,31 @@ class BMIActivity : AppCompatActivity() {
                 ).show()
             }
 
+    }
+    private fun calculateUSABMI(){
+        if(validateUSAcUnits()){
+            val usaUnitsWeight:Float=binding?.cometUSAUnitWeight?.text.toString().toFloat()
+            val usaUnitsHeightFeet:String=binding?.cometUSAunitHeightFeet?.text.toString()
+            val usaUnitsHeightInch:String=binding?.cometUSAunitHeightInch?.text.toString()
+
+            val heightValue=usaUnitsHeightInch.toFloat()+usaUnitsHeightFeet.toFloat()*12
+
+            val bmi=703*(usaUnitsWeight/(heightValue*heightValue))
+
+            displayBMIResults(bmi)
+        }else {
+            Toast.makeText(
+                this@BMIActivity, "Please Enter valid values",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+    private fun calculateUnits(){
+        if (currentUnitView== METRIC_UNITS){
+            calculateMetricBMI()
+        }else{
+            calculateUSABMI()
+        }
     }
     private fun displayBMIResults(bmi :Float){
         val bmiLabel:String

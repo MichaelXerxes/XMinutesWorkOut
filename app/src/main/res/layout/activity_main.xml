@@ -82,11 +82,11 @@
         android:id="@+id/bmiCalculator"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="36dp"
         android:background="@drawable/item_circular_accent_background1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flBtnStartThirdSet">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
@@ -95,6 +95,26 @@
             android:text="BMI"
             android:textColor="@color/white"
             android:textSize="@dimen/default_text_size_btn"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/btnHistory"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/item_circular_accent_background1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="HISTORY"
+            android:textColor="@color/white"
+            android:textSize="18sp"
             android:textStyle="bold" />
     </FrameLayout>
 
