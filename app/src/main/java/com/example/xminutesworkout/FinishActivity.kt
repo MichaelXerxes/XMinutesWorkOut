@@ -18,7 +18,7 @@ import kotlin.collections.ArrayList
 class FinishActivity : AppCompatActivity() {
 
     private var binding:ActivityFinishBinding?=null
-    //private var exerciseList:ArrayList<ExerciseModel>?=null
+
     private var exerciseList:ArrayList<ExerciseModel>?=null
     private var exerciseAdapter:ExerciseStatusAdapter?=null
 
@@ -31,17 +31,7 @@ class FinishActivity : AppCompatActivity() {
 
 
         setContentView(binding?.root)
-         //exerciseList=intent.getLongArrayExtra("Exercise List")
 
-
-
-        /*setSupportActionBar(binding?.toolbarFinishActivity)
-        if (supportActionBar != null){
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        }
-        binding?.toolbarFinishActivity?.setNavigationOnClickListener {
-            onBackPressed()
-        }*/
 
         binding?.btnFinish?.setOnClickListener {
             finish()
@@ -75,5 +65,11 @@ class FinishActivity : AppCompatActivity() {
             historyDao.insert(HistoryEntity(date=date))
             Toast.makeText(applicationContext,"Record saved",Toast.LENGTH_SHORT).show()
         }
+    }
+    override fun onDestroy(){
+        super.onDestroy()
+        binding=null
+        exerciseList=null
+        exerciseAdapter=null
     }
 }

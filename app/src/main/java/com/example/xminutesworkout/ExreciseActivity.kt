@@ -46,6 +46,8 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private var exerciseAdapter:ExerciseStatusAdapter?=null
 
+    private var numberExerciseSeconds:Int=0
+
 
 
 
@@ -91,6 +93,11 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 exerciseList= ConstantThirdSet.defaultExerciseList()
             }
         }
+
+        numberExerciseSeconds=intent.getIntExtra("Exercise_seconds",0)
+
+
+
 
     }
     private fun displayCustomDialogForBackButton(){
@@ -221,9 +228,9 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun setExreciseProgressBar(){
         mergeBinding?.ExerciseprogressBarID?.progress=exerciseProgress
 
+        mergeBinding?.tvExreciseTimerID?.text=numberExerciseSeconds.toString()
 
-
-        exerciseTimer=object : CountDownTimer(1000,1000){
+        exerciseTimer=object : CountDownTimer((numberExerciseSeconds*1000).toLong(),1000){
             override fun onTick(millisUntilFinished: Long) {
                 exerciseProgress++
 
@@ -274,7 +281,7 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
     private fun startTimer(pauseOffsetL: Long) {
 
-        exerciseTimer= object : CountDownTimer((timeLeftInSeconds*1000).toLong()
+        exerciseTimer= object : CountDownTimer((timeLeftInSeconds.toInt()*1000).toLong()
             ,1000){
             override fun onTick(millisUntilFinished: Long) {
                 //pauseOffset=timeDuration - millisUntilFinished

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:id="@+id/llPopUp"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/popup_background">
+    <TextView
+        android:layout_alignParentTop="true"
+        android:id="@+id/fistText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Choose the number of repetitions "
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="3dp"
+        />
+    <NumberPicker
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/fistText"
+        android:id="@+id/numberPickerforSets"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="visible"
+        android:layout_marginBottom="3dp"
+        android:padding="2dp"/>
+
+    <TextView
+        android:id="@+id/secondText"
+        android:layout_below="@+id/numberPickerforSets"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Duration in seconds"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_marginBottom="3dp"
+        android:textStyle="bold"
+        />
+    <NumberPicker
+        android:layout_below="@+id/secondText"
+        android:id="@+id/numberPickerforExerciseinSeconds"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="visible"
+        android:layout_marginBottom="3dp"
+        android:padding="2dp"/>
+    <TextView
+        android:id="@+id/therdText"
+        android:layout_below="@+id/numberPickerforExerciseinSeconds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:gravity="center"
+        android:text="Duration in seconds"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        />
+    <NumberPicker
+        android:layout_below="@id/therdText"
+        android:id="@+id/numberPickerforRestinSeconds"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="3dp"
+        android:visibility="visible"
+        android:layout_centerHorizontal="true"
+        android:padding="2dp"/>
+    <LinearLayout
+        android:layout_below="@+id/numberPickerforRestinSeconds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:layout_marginBottom="3dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_margin="3dp"
+            android:id="@+id/btnYesID"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+
+            android:backgroundTint="@color/toolbar_color_control"
+            android:gravity="center"
+            android:text="YES"
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
+        <Button
+            android:layout_margin="3dp"
+            android:id="@+id/btnNoID"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+
+            android:backgroundTint="@color/toolbar_color_control"
+            android:gravity="center"
+            android:text="NO"
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+
+</RelativeLayout>
