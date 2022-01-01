@@ -32,33 +32,59 @@
         />
 
     <ImageView
-        android:layout_marginTop="10dp"
         android:id="@+id/ivImageItsNameID"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="203dp"
+        android:layout_marginTop="10dp"
         android:scaleType="fitXY"
 
         android:src="@drawable/circular_progress_bar"
 
-         />
-    <FrameLayout
+        />
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
 
 
         <Button
-            android:id="@+id/pause_playBtnID"
+            android:id="@+id/playBtnID"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/accent_border_background"
-            android:text="PAUSE/PLAY"
+            android:text="PLAY"
+            android:layout_weight="1"
+            android:textSize="@dimen/default_text_size_btn"
+            android:textStyle="bold"
+            android:textColor="#CAE4ED"
+            android:layout_margin="4dp"/>
+        <Button
+            android:id="@+id/pauseBtnID"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/accent_border_background"
+            android:text="PAUSE"
+            android:layout_weight="1"
+            android:textSize="@dimen/default_text_size_btn"
+            android:textStyle="bold"
+            android:layout_margin="4dp"
+            android:textColor="#CAE4ED"/>
+        <Button
+            android:id="@+id/nextBtnID"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/accent_border_background"
+            android:text="NEXT"
+            android:layout_margin="4dp"
             android:textSize="@dimen/default_text_size_btn"
             android:textStyle="bold"
             android:textColor="#CAE4ED"/>
 
-    </FrameLayout>
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/frameExerciseLayoutProgressBar"

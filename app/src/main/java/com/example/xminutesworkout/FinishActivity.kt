@@ -52,6 +52,10 @@ class FinishActivity : AppCompatActivity() {
 
 
     }
+    private fun addExtraToDaoHistoryList():IntArray{
+        val list: IntArray? =intent.getIntArrayExtra("for Dao")
+        return list!!
+    }
 
     private fun addHisoryDateToDataBase(historyDao: HistoryDao){
         val exercisedate=Calendar.getInstance()
@@ -60,9 +64,12 @@ class FinishActivity : AppCompatActivity() {
         val sdf=SimpleDateFormat("dd MMM yyyy HH:mm:ss",Locale.getDefault())
         val date=sdf.format(dateTime)
 
+        val listInt:IntArray= addExtraToDaoHistoryList()
 
         lifecycleScope.launch {
-            historyDao.insert(HistoryEntity(date=date))
+            //historyDao.insert(HistoryEntity(date=date))
+            historyDao.insert(HistoryEntity(date=date,sets =listInt[0].toString(), durationExer = listInt[1].toString(),
+            duartionRest = listInt[2].toString()))
             Toast.makeText(applicationContext,"Record saved",Toast.LENGTH_SHORT).show()
         }
     }

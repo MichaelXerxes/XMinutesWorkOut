@@ -49,10 +49,22 @@ class HistoryActivity : AppCompatActivity() {
                     binding?.rvItemsList?.visibility= View.VISIBLE
 
                     val dates=ArrayList<String>()
+                    val Sets=ArrayList<String>()
+                    val Exer=ArrayList<String>()
+                    val Rest=ArrayList<String>()
                     for(date in allCompletedExerciseList){
                         dates.add(date.date)
                     }
-                    val historyAdapter=ItemAdapter(dates)
+                    for(set in allCompletedExerciseList){
+                        Sets.add(set.sets)
+                    }
+                    for(exr in allCompletedExerciseList){
+                        Exer.add(exr.durationExer)
+                    }
+                    for(res in allCompletedExerciseList){
+                        Rest.add(res.duartionRest)
+                    }
+                    val historyAdapter=ItemAdapter(dates,Sets,Exer,Rest)
                         //,{ deleteID ->
                        // deleteRecordAlert(deleteID,historyDao)
                    // }

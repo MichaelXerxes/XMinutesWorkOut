@@ -47,6 +47,10 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var exerciseAdapter:ExerciseStatusAdapter?=null
 
     private var numberExerciseSeconds:Int=0
+    private var numberRestSeconds:Int=0
+    private var numberSets:Int=0
+
+    private val list:IntArray = IntArray(3)
 
 
 
@@ -95,6 +99,12 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
 
         numberExerciseSeconds=intent.getIntExtra("Exercise_seconds",0)
+        numberRestSeconds=intent.getIntExtra("Rest_seconds",0)
+        numberSets=intent.getIntExtra("Number_sets",0)
+
+        list.set(0,numberSets)
+        list.set(1,numberExerciseSeconds)
+        list.set(2,numberRestSeconds)
 
 
 
@@ -155,6 +165,7 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         binding?.tvtitle?.visibility=View.VISIBLE
         binding?.tvNextExerciseName?.visibility=View.VISIBLE
         binding?.tvNextExercise?.visibility=View.VISIBLE
+        binding?.progressBar?.max=numberRestSeconds
 
         if (restTimer!=null){
             restTimer?.cancel()
@@ -180,6 +191,7 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
        mergeBinding?.ivImageItsNameID?.setImageResource(exerciseList!![currentExrPosition].getImage())
        mergeBinding?.tvExerciseNameID?.text=exerciseList!![currentExrPosition].getName()
+       mergeBinding?.ExerciseprogressBarID!!.max=numberExerciseSeconds
 
 
         //reset Timer
@@ -195,18 +207,18 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
        }catch (e:Exception){
            e.printStackTrace()
        }
-
-        setExreciseProgressBar()
-
+       //for(i in 1..numberSets) {
+           setExreciseProgressBar()
+       //}
     }
     private fun setRestProgressBar(){
         binding?.progressBar?.progress = restProgress
 
-        restTimer=object : CountDownTimer(2000,1000){
+        restTimer=object : CountDownTimer((numberRestSeconds*1000).toLong(),1000){
             override fun onTick(millisUntilFinished: Long) {
                 restProgress++
-                binding?.progressBar?.progress=5-restProgress
-                binding?.tvTimer?.text=(5-restProgress).toString()
+                binding?.progressBar?.progress=numberRestSeconds-restProgress
+                binding?.tvTimer?.text=(numberRestSeconds-restProgress).toString()
 
             }
 
@@ -226,58 +238,74 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun setExreciseProgressBar(){
+        var index=1
+
         mergeBinding?.ExerciseprogressBarID?.progress=exerciseProgress
 
-        mergeBinding?.tvExreciseTimerID?.text=numberExerciseSeconds.toString()
+        //mergeBinding?.tvExreciseTimerID?.text=numberExerciseSeconds.toString()
+        //mergeBinding?.ExerciseprogressBarID?.max=numberExerciseSeconds
 
-        exerciseTimer=object : CountDownTimer((numberExerciseSeconds*1000).toLong(),1000){
+        exerciseTimer=object : CountDownTimer((numberExerciseSeconds*1000).toLong(),1000) {
             override fun onTick(millisUntilFinished: Long) {
                 exerciseProgress++
 
-                mergeBinding?.ExerciseprogressBarID?.progress=8-exerciseProgress
-                mergeBinding?.tvExreciseTimerID?.text=(8-exerciseProgress).toString()
+                mergeBinding?.ExerciseprogressBarID?.progress =
+                    numberExerciseSeconds - exerciseProgress
+                mergeBinding?.tvExreciseTimerID?.text =
+                    (numberExerciseSeconds - exerciseProgress).toString()
 
-                timeLeftInSeconds=(millisUntilFinished/1000).toInt()
+                timeLeftInSeconds = (millisUntilFinished / 1000).toInt()
 
-                val long1:Long=(8-exerciseProgress).toLong()
+                val long1: Long = (numberExerciseSeconds - exerciseProgress).toLong()
 
 
-                mergeBinding?.pausePlayBtnID?.setOnClickListener {
-                    index++
-                    if (index%2!=0){
-                        pauseTimer(exerciseTimer!!)
-                    }
-                    else{
+                mergeBinding?.playBtnID?.setOnClickListener {
                         startTimer(long1)
-                        isPauseChecked=false
+                      //  isPauseChecked = false
                     }
+                mergeBinding?.pauseBtnID?.setOnClickListener {
+                    pauseTimer(exerciseTimer!!)
                 }
-
-            }
-
-            override fun onFinish() {
-
-                if(currentExrPosition<exerciseList?.size!!-1){
-                    ///////current exercise complited
+                mergeBinding?.nextBtnID?.setOnClickListener {
+                    exerciseTimer?.onFinish()
                     exerciseList!![currentExrPosition].setIsSelected(false)
                     exerciseList!![currentExrPosition].setIsComplited(true)
                     exerciseAdapter!!.notifyDataSetChanged()
                     setupRestView()
-                }else{
-                    Toast.makeText(
-                        this@ExreciseActivity,
-                        "Congratulation you finish",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-
-                    val intent=Intent(this@ExreciseActivity, FinishActivity::class.java)
-                    startActivity(intent)
-                    //intent.putExtra("Exercise List",exerciseList)
-                    finish()
                 }
-            }
-        }.start()
+                }
+
+
+            override fun onFinish() {
+
+                    if (currentExrPosition < exerciseList?.size!! - 1) {
+
+                        ///////current exercise complited
+                        exerciseList!![currentExrPosition].setIsSelected(false)
+                        exerciseList!![currentExrPosition].setIsComplited(true)
+                        exerciseAdapter!!.notifyDataSetChanged()
+                        setupRestView()
+                    } else {
+                        Toast.makeText(
+                            this@ExreciseActivity,
+                            "Congratulation you finish",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+
+                        val intent = Intent(this@ExreciseActivity, FinishActivity::class.java)
+
+
+                        intent.putExtra("for Dao",list )
+                        startActivity(intent)
+                        //intent.putExtra("Exercise List",exerciseList)
+                        finish()
+                    }
+
+
+                }
+            }.start()
+
     }
     private fun startTimer(pauseOffsetL: Long) {
 
@@ -315,7 +343,8 @@ class ExreciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
     private fun pauseTimer(timer: CountDownTimer){
         timer.cancel()
-        isPauseChecked=true
+
+        //isPauseChecked=true
     }
 
 

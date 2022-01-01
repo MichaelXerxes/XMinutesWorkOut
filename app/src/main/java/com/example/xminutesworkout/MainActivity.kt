@@ -122,8 +122,7 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("Exercise_seconds", valuesListForNextIntenty!![1])
             intent.putExtra("Number_sets",valuesListForNextIntenty!![0])
             intent.putExtra("Rest_seconds",valuesListForNextIntenty!![2])
-            //intent.putExtra("ArrayAny",valuesListForNextIntenty)
-           // intent.putExtra("IntArray",valuesListForNextIntenty)
+
             startActivity(intent)
 
         }
