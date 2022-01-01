@@ -1,10 +1,5 @@
 # XMinutesWorkOut
-<img src=https://user-images.githubusercontent.com/81194285/142292868-16d5e2ef-b2e2-4f9a-880c-85c3a7679b31.png width="400" height="400">
 
-<div>
-<img src=https://user-images.githubusercontent.com/81194285/145099966-4fd44cd8-a828-4ec9-8bf9-693baadec8e9.png width="200" height="400">
-<img src=https://user-images.githubusercontent.com/81194285/145100234-9cefb7bf-a77d-49f0-99fc-8fa6c64dc11e.png width="200" height="400">
-  </div>
 <div>
 <img src=https://user-images.githubusercontent.com/81194285/145109305-0f3c3b08-20b5-48fa-9cb8-2374630590cd.png width="200" height="400">
 <img src=https://user-images.githubusercontent.com/81194285/145109383-60d022e0-790d-4234-98ba-24cf085cfb7d.png width="200" height="400">
